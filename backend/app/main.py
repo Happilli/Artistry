@@ -8,5 +8,4 @@ app = FastAPI()
 async def root():
     return {"message": "Database connected successfully!"}
 
-
 app.include_router(authRoutes.router)
