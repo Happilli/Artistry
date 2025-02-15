@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <>
       {/* Banner Section */}
-      <div className="bg-red-600 text-white font-bold py-3 text-center">
+      <div className="bg-red-600 text-white font-bold  text-center">
         <div className="container mx-auto">
           <p className="text-lg">Explore my manga and artwork collection!</p>
         </div>
