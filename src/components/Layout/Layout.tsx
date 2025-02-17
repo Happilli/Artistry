@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Helmet } from "react-helmet";
+import React, { ReactNode } from "react";
+import { Helmet } from "react-helmet"; // Use this instead of react-helmet-async
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -12,14 +12,14 @@ interface LayoutProps {
   viewport?: string;
 }
 
-const Layout = ({
+const Layout: React.FC<LayoutProps> = ({
   children,
   title = "Artistry",
   description = "Discover amazing art, manga, and sketches.",
   author = "Safal Lama",
   keywords = "art, manga, sketches, drawing",
   viewport = "width=device-width, initial-scale=1",
-}: LayoutProps) => {
+}) => {
   return (
     <div className="flex flex-col min-h-screen w-full">
       <Helmet>
