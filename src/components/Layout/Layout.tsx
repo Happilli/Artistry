@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Helmet } from "react-helmet"; // Use this instead of react-helmet-async
+import { Helmet } from "react-helmet";
 import Header from "./Header";
 import Footer from "./Footer";
 
