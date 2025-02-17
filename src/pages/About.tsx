@@ -6,7 +6,12 @@ const About: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout>
+    <Layout
+      title="About - Artistry | I Develop Art"
+      description="Learn more about the artist behind Artistry. Passionate about art, manga, and creative sketches."
+      author="Safal Lama"
+      keywords="about artistry, artist portfolio, digital art, sketches, manga artist"
+    >
       <div className="flex h-screen w-full bg-white">
         {/* Centered Content */}
         <div className="flex flex-col justify-center items-center w-full text-center space-y-8">

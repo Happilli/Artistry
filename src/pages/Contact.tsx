@@ -6,7 +6,12 @@ const Contact: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout>
+    <Layout
+      title="Contact - Artistry | Get in Touch"
+      description="Have questions or inquiries? Contact the artist behind Artistry via email at yoyuehapy@gmail.com."
+      author="Safal Lama"
+      keywords="contact artistry, reach out, artist contact, email artist, art inquiries"
+    >
       <div className="flex h-screen w-full bg-white">
         {/* Centered Content */}
         <div className="flex flex-col justify-center items-center w-full text-center space-y-8 px-4 py-8">

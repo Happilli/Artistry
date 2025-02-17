@@ -19,7 +19,12 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <Layout
+      title="Home - Artistry | Explore Manga, Sketches & Digital Art"
+      description="Welcome to Artistry, a world of manga, sketches, and digital illustrations. Explore my portfolio and discover unique art pieces."
+      author="Safal Lama"
+      keywords="manga art, digital sketches, illustrations, artwork, Safal Lama, Artistry"
+    >
       <div className="flex h-screen w-full overflow-hidden">
         <div className="w-full md:w-1/2 bg-[#ba1f2a] flex justify-center items-center relative">
           <img

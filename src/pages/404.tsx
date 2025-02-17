@@ -6,7 +6,12 @@ const NotFound: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout>
+    <Layout
+      title="404 Not Found - Artistry"
+      description="The page you are looking for does not exist. Return to the homepage or contact us for assistance."
+      author="Safal Lama"
+      keywords="404 error, page not found, missing page, broken link"
+    >
       <div className="flex h-screen w-full bg-white">
         {/* Centered Content */}
         <div className="flex flex-col justify-center items-center w-full text-center space-y-6">
@@ -31,7 +36,7 @@ const NotFound: React.FC = () => {
               onClick={() => navigate("/contact")}
               className="px-6 py-3 bg-transparent border-2 border-[#ba1f2a] text-[#ba1f2a] rounded-md text-lg font-semibold transition-all hover:bg-[#ba1f2a] hover:text-white"
             >
-              Contact Us
+              Contact Me
             </button>
           </div>
         </div>
