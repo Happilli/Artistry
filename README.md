@@ -1,5 +1,4 @@
 # <samp>My Art and Manga Site </samp>
-
 ### **Tech Stack**
 
 <table>
