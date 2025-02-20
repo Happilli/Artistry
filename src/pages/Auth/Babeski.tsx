@@ -13,7 +13,7 @@ const Babeski: React.FC = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate("/dashboard"); // Redirect to dashboard if already logged in
+      navigate("/"); 
     }
   }, [accessToken, navigate]);
 

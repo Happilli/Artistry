@@ -1,12 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/useAuth"; 
 
 const Header = () => {
   const location = useLocation();
+  const { accessToken } = useAuth(); 
 
   return (
     <>
       {/* Banner Section */}
-      <div className="bg-red-600 text-white font-bold  text-center">
+      <div className="bg-red-600 text-white font-bold text-center">
         <div className="container mx-auto">
           <p className="text-lg">Explore my manga and artwork collection!</p>
         </div>
@@ -43,6 +45,26 @@ const Header = () => {
                   </li>
                 );
               })}
+
+              {/* Conditionally render "Dashboard" link */}
+              {accessToken && (
+                <li>
+                  <Link
+                    to="/dashboard"
+                    className={`text-gray-800 text-lg relative group transition-all duration-350 ease-in-out ${
+                      location.pathname === "/dashboard" ? "text-red-600" : ""
+                    }`}
+                  >
+                    Dashboard
+                    {/* Active link indicator */}
+                    <span
+                      className={`block w-0 h-0.5 bg-red-600 transition-all duration-500 ease-in-out group-hover:w-full group-hover:h-0.5 mt-1 ${
+                        location.pathname === "/dashboard" ? "w-0" : ""
+                      }`}
+                    ></span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

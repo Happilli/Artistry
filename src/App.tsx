@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import Babeski from "./pages/Auth/Babeski";
 import ProtectedRoute from "./pages/Auth/ProtectedRoute";
 import Dashboard from "./pages/Safal/Dashboard";
+import MangaDashboard from "./pages/Safal/MangaDashboard";
+import SketchDashboard from "./pages/Safal/SketchDashboard";
 
 const App: React.FC = () => {
   const [progress, setProgress] = useState<number>(0);
@@ -40,7 +42,10 @@ const App: React.FC = () => {
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="manga" element={<MangaDashboard />} />
+            <Route path="sketch" element={<SketchDashboard />} />
+          </Route>
         </Route>
 
         {/* Catch-All Route */}
