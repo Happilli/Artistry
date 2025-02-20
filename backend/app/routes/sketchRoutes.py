@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
-from app.controllers.sketch_controller import add_sketch, get_sketch_list, get_sketch_by_special_id
+from app.controllers.sketch_controller import add_sketch, get_sketch_list, get_sketch_by_special_id, get_all_sketches
 from app.models.sketches import Sketch
 from app.middlewares.authMiddleware import verify_jwt_token
 from fastapi.responses import JSONResponse
@@ -47,3 +47,9 @@ async def list_sketch_route():
 async def get_sketch_route(special_id: str):
     sketch = await get_sketch_by_special_id(special_id)
     return {"sketch": sketch}
+
+
+@router.get("/pollute")
+async def get_all_sketches_route():
+    sketches = await get_all_sketches()
+    return {"sketches": sketches}

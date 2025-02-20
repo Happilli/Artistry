@@ -45,3 +45,19 @@ async def get_sketch_by_special_id(special_id: str):
         return sketch
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+
+
+# listing everything from the sketches collection
+async def get_all_sketches():
+    try:
+        sketches = await db.sketches.find({}).to_list(None)
+
+        for sketch in sketches:
+            sketch["_id"] = str(sketch["_id"])
+
+            if "image" in sketch and sketch["image"]:
+                sketch["image"] = base64.b64encode(sketch["image"]).decode('utf-8')
+
+        return sketches
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")

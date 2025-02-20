@@ -15,7 +15,7 @@ const Header = () => {
       </div>
 
       {/* Header Section */}
-      <header className="sticky top-0 z-30 py-4 m-0 backdrop-blur-md bg-white/30">
+      <header className="sticky top-0 z-60 py-4 m-0 backdrop-blur-md bg-white/30">
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <h1 className="text-4xl font-bold text-gray-800 ml-6">Safal's Art</h1>

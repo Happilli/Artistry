@@ -1,15 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
+import axios from "axios";
+import { Star } from "@phosphor-icons/react";
 
 const Home: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [sketches, setSketches] = useState<
+    {
+      _id: string;
+      name: string;
+      quality: number;
+      description: string;
+      image: string;
+      category: string;
+      special_id: string;
+      created_at: string;
+    }[]
+  >([]);
   const navigate = useNavigate();
 
+  const handleScroll = useCallback(() => {
+    requestAnimationFrame(() => setScrollY(window.scrollY));
+  }, []);
+
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  useEffect(() => {
+    const fetchSketches = async () => {
+      try {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/sketches/pollute`
+        );
+        // Sort the sketches by created_at date in descending order, then slice the latest 4.
+        const latestSketches = data.sketches
+          .sort(
+            (a: { created_at: string }, b: { created_at: string }) =>
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime()
+          )
+          .slice(0, 4); 
+        setSketches(latestSketches);
+      } catch (error) {
+        console.error("Error fetching sketches:", error);
+      }
+    };
+
+    fetchSketches();
   }, []);
 
   return (
@@ -30,7 +70,7 @@ const Home: React.FC = () => {
                 scrollY * 0.4
               }px) translateX(20%) scaleX(-1)`,
               transition: "transform 0.1s ease-out",
-              zIndex: 500,
+              zIndex: 50,
             }}
           />
           <h1
@@ -41,13 +81,12 @@ const Home: React.FC = () => {
               fontFamily: "Poppins, sans-serif",
               transform: `translateY(${scrollY * 0.8}px)`,
               transition: "transform 0.1s ease-out",
-              zIndex: 60,
             }}
           >
             SAFAL
           </h1>
           <div
-            className="absolute top-2/4 left-1/2 transform -translate-x-1/2 text-white z-60 text-center"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 text-white text-center"
             style={{
               transform: `translateY(${scrollY * 0.5}px)`,
               transition: "transform 0.1s ease-out",
@@ -72,7 +111,6 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-
         <div className="w-full md:w-1/2 bg-[#1a171c] flex justify-center items-center relative">
           <h1
             className="text-[10rem] md:text-[12rem] font-bold text-white relative"
@@ -84,13 +122,12 @@ const Home: React.FC = () => {
               fontFamily: "Poppins, sans-serif",
               transform: `translateY(${scrollY * 0.6}px)`,
               transition: "transform 0.1s ease-out",
-              zIndex: 20,
             }}
           >
             ARTS
           </h1>
           <div
-            className="absolute top-2/4 left-1/2 transform -translate-x-1/2 text-white z-60 text-left"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 text-white text-left"
             style={{
               transform: `translateY(${scrollY * 0.5}px)`,
               transition: "transform 0.1s ease-out",
@@ -108,34 +145,58 @@ const Home: React.FC = () => {
           Featured Sketches
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {["manga1", "manga2", "art1", "sketch1"].map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white border-2 border-[#ba1f2a] rounded-lg overflow-hidden shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl hover:border-[#d4a1a6]"
-            >
-              <img
-                src={`/assets/${item}.jpg`}
-                alt={`Item ${idx + 1}`}
-                className="w-full h-72 object-cover transform transition-all duration-300 hover:scale-105"
-              />
-              <div className="p-4 flex flex-col justify-between h-full">
-                <h3 className="text-2xl font-semibold text-[#ba1f2a]">{`Title ${
-                  idx + 1
-                }`}</h3>
-                <p className="text-lg mt-2 text-gray-700">
-                  Short description or excerpt here.
-                </p>
-                <div className="mt-auto">
-                  <button
-                    onClick={() => navigate(`/details/${item}`)}
-                    className="px-4 py-2 bg-[#ba1f2a] text-white rounded-md text-sm font-semibold mt-4 transition-all hover:bg-[#d4a1a6]"
-                  >
-                    View More
-                  </button>
+          {sketches.length > 0 ? (
+            sketches.map((sketch) => (
+              <div
+                key={sketch._id}
+                className="bg-white border-2 border-[#ba1f2a] rounded-lg overflow-hidden shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl hover:border-[#d4a1a6]"
+              >
+                <img
+                  src={`data:image/png;base64,${sketch.image}`}
+                  alt={sketch.name}
+                  className="w-full h-90 object-cover transform transition-all duration-300 hover:scale-105"
+                />
+                <div className="p-4 flex flex-col justify-between h-full">
+                  <h3 className="text-2xl font-semibold text-[#ba1f2a]">
+                    {sketch.name}
+                  </h3>
+                  <p className="text-sm text-gray-700 mt-2">
+                    <strong>Category:</strong> {sketch.category}
+                  </p>
+                  <p className="text-sm text-gray-700 mt-1">
+                    <strong>Special ID:</strong> {sketch.special_id}
+                  </p>
+                  <p className="text-sm text-gray-700 mt-1">
+                    <strong>Created On:</strong>{" "}
+                    {new Date(sketch.created_at).toLocaleDateString()}
+                  </p>
+                  <div className="flex mt-2">
+                    {/* Always show 5 stars, fill based on quality */}
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        size={32}
+                        weight={i < sketch.quality ? "fill" : "regular"}
+                        className="text-[#ba1f2a]"
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-auto flex-grow">
+                    <button
+                      onClick={() => alert(sketch.description)}
+                      className="px-4 py-2 bg-[#ba1f2a] text-white rounded-md text-sm font-semibold mt-4 transition-all hover:bg-[#d4a1a6]"
+                    >
+                      Details
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-center text-lg text-gray-700">
+              No sketches available yet.
+            </p>
+          )}
         </div>
       </div>
     </Layout>
