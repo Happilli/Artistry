@@ -1,18 +1,65 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import { Star } from "@phosphor-icons/react";
-import { useSketch } from "../context/useSketch";
+import axios from "axios";
+
+interface Sketch {
+  _id: string;
+  name: string;
+  quality: number;
+  description: string;
+  image: string;
+  category: string;
+  special_id: string;
+  created_at: string;
+}
+
 const SketchDetail: React.FC = () => {
   const { special_id } = useParams<{ special_id: string }>();
-  const { sketch, loading, error, fetchSketchById } = useSketch();
+  const [sketch, setSketch] = useState<Sketch | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (special_id && !sketch) {
-      fetchSketchById(special_id);
+  const fetchSketch = useCallback(async () => {
+    if (special_id) {
+      try {
+        setLoading(true);
+        setError(null);
+        const { data } = await axios.get(
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/sketches/getsketch/${special_id}`
+        );
+        setSketch(data.sketch);
+      } catch (err) {
+        setError("Failed to fetch sketch details.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [special_id, fetchSketchById, sketch]);
+  }, [special_id]);
+
+  useEffect(() => {
+    fetchSketch();
+  }, [fetchSketch]);
+
+  if (loading) {
+    return (
+      <Layout
+        title="Loading... - Artistry | Sketch Details"
+        description="Loading sketch details"
+        author="Safal Lama"
+        keywords="loading, sketch, artwork, details, digital art"
+      >
+        <div className="flex justify-center items-center py-16">
+          <p className="text-xl">Loading sketch details...</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout
@@ -24,11 +71,7 @@ const SketchDetail: React.FC = () => {
       keywords={`${sketch?.name}, sketch, artwork, details, digital art`}
     >
       <div className="bg-[#f5f5f5] min-h-screen">
-        {loading ? (
-          <div className="flex justify-center items-center py-16">
-            <p className="text-xl">Loading sketch details...</p>
-          </div>
-        ) : error ? (
+        {error ? (
           <div className="flex justify-center items-center py-16">
             <p className="text-xl text-red-500">{error}</p>
           </div>

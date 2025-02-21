@@ -15,8 +15,6 @@ export interface SketchesContextType {
   sketches: Sketch[];
   loading: boolean;
   error: string | null;
-  fetchSketchById: (special_id: string) => Promise<void>;
-  sketch: Sketch | null;
 }
 
 export const SketchesContext = createContext<SketchesContextType | undefined>(

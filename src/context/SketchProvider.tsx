@@ -17,7 +17,6 @@ export const SketchProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [sketches, setSketches] = useState<Sketch[]>([]);
-  const [sketch, setSketch] = useState<Sketch | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,25 +44,13 @@ export const SketchProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchSketches();
   }, []);
 
-  const fetchSketchById = async (special_id: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/sketches/getsketch/${special_id}`
-      );
-      setSketch(data.sketch);
-    } catch (error) {
-      setError("Failed to fetch sketch details.");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <SketchesContext.Provider
-      value={{ sketches, loading, error, fetchSketchById, sketch }}
+      value={{
+        sketches,
+        loading,
+        error,
+      }}
     >
       {children}
     </SketchesContext.Provider>

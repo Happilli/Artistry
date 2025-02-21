@@ -12,6 +12,7 @@ import Dashboard from "./pages/Safal/Dashboard";
 import MangaDashboard from "./pages/Safal/MangaDashboard";
 import SketchDashboard from "./pages/Safal/SketchDashboard";
 import SketchDetail from "./pages/SketchDetail";
+import Artworks from "./pages/Global/Artworks";
 
 const App: React.FC = () => {
   const [progress, setProgress] = useState<number>(0);
@@ -39,6 +40,9 @@ const App: React.FC = () => {
         <Route path="/contact" element={<Contact />} />
         {/* SketchDetail route */}
         <Route path="/sketch/:special_id" element={<SketchDetail />} />
+
+        {/* global  */}
+        <Route path="/artworks" element={<Artworks />} />
 
         {/* Authentication Route */}
         <Route path="/babeski" element={<Babeski />} />
