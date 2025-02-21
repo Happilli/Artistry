@@ -16,20 +16,20 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-#registering user
-async def register_user(user_data: User):
-    existing_user = await db.users.find_one({"email": user_data.email})
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
+# #registering user [commenting un used fucntions]
+# async def register_user(user_data: User):
+#     existing_user = await db.users.find_one({"email": user_data.email})
+#     if existing_user:
+#         raise HTTPException(status_code=400, detail="Email already registered")
 
-    hashed_password = pwd_context.hash(user_data.hashed_password)
-    user_data.hashed_password = hashed_password
+#     hashed_password = pwd_context.hash(user_data.hashed_password)
+#     user_data.hashed_password = hashed_password
 
-    try:
-        new_user = await db.users.insert_one(user_data.dict(by_alias=True))
-        return {"message": "User registered successfully!", "user_id": str(new_user.inserted_id)}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+#     try:
+#         new_user = await db.users.insert_one(user_data.dict(by_alias=True))
+#         return {"message": "User registered successfully!", "user_id": str(new_user.inserted_id)}
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
 
 
 #loggingin-User
