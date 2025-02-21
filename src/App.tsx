@@ -11,6 +11,7 @@ import ProtectedRoute from "./pages/Auth/ProtectedRoute";
 import Dashboard from "./pages/Safal/Dashboard";
 import MangaDashboard from "./pages/Safal/MangaDashboard";
 import SketchDashboard from "./pages/Safal/SketchDashboard";
+import SketchDetail from "./pages/SketchDetail";
 
 const App: React.FC = () => {
   const [progress, setProgress] = useState<number>(0);
@@ -36,6 +37,8 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        {/* SketchDetail route */}
+        <Route path="/sketch/:special_id" element={<SketchDetail />} />
 
         {/* Authentication Route */}
         <Route path="/babeski" element={<Babeski />} />
