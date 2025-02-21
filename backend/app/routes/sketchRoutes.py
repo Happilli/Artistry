@@ -53,3 +53,7 @@ async def get_sketch_route(special_id: str):
 async def get_all_sketches_route():
     sketches = await get_all_sketches()
     return {"sketches": sketches}
+
+
+#implement category listing route
+#implement searching one group of sketches matching that catogory
