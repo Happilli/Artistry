@@ -67,3 +67,6 @@ async def list_categories():
 async def list_sketches_by_category(category: str):
     sketches = await get_sketches_by_category(category)
     return {"sketches": sketches}
+
+
+#implement admin deletion of the arts with jwt middleware vefication
