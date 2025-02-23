@@ -79,3 +79,6 @@ async def delete_sketch_route(
         return payload  
     
     return await delete_sketch_by_special_id(special_id)
+
+
+#Implement vaious filteration ways[filter by special id, filtering by the raitng{quality}]
