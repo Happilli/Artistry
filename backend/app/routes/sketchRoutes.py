@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
-from app.controllers.sketch_controller import add_sketch, get_sketch_list, get_sketch_by_special_id, get_all_sketches
+from app.controllers.sketch_controller import add_sketch, get_sketch_list, get_sketch_by_special_id, get_all_sketches, get_all_categories, get_sketches_by_category
 from app.models.sketches import Sketch
 from app.middlewares.authMiddleware import verify_jwt_token
 from fastapi.responses import JSONResponse
@@ -56,4 +56,14 @@ async def get_all_sketches_route():
 
 
 #implement category listing route
+@router.get("/categories")
+async def list_categories():
+    categories = await get_all_categories()
+    return {"categories": categories}
+
+
 #implement searching one group of sketches matching that catogory
+@router.get("/category/{category}")
+async def list_sketches_by_category(category: str):
+    sketches = await get_sketches_by_category(category)
+    return {"sketches": sketches}
