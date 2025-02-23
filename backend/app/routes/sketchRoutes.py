@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
-from app.controllers.sketch_controller import add_sketch, get_sketch_list, get_sketch_by_special_id, get_all_sketches, get_all_categories, get_sketches_by_category
+from app.controllers.sketch_controller import add_sketch, get_sketch_list, get_sketch_by_special_id, get_all_sketches, get_all_categories, get_sketches_by_category, delete_sketch_by_special_id
 from app.models.sketches import Sketch
 from app.middlewares.authMiddleware import verify_jwt_token
 from fastapi.responses import JSONResponse
@@ -70,3 +70,12 @@ async def list_sketches_by_category(category: str):
 
 
 #implement admin deletion of the arts with jwt middleware vefication
+@router.delete("/delete/{special_id}")
+async def delete_sketch_route(
+    special_id: str,
+    payload: dict = Depends(verify_jwt_token) 
+):
+    if isinstance(payload, JSONResponse): 
+        return payload  
+    
+    return await delete_sketch_by_special_id(special_id)

@@ -87,3 +87,18 @@ async def get_all_categories():
         return categories
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+
+
+
+
+# Deleting a sketch by special_id
+async def delete_sketch_by_special_id(special_id: str):
+    try:
+        result = await db.sketches.delete_one({"special_id": special_id})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Sketch not found")
+        
+        return {"message": "Sketch deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
