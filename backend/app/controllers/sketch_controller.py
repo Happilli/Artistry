@@ -117,3 +117,6 @@ async def get_sketches_by_quality(quality: int):
         return sketches
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+
+
+##Implenetin gosme sorting mechansm for all the sketches based on alphabet, quality,
