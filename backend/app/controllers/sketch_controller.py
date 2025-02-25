@@ -102,3 +102,18 @@ async def delete_sketch_by_special_id(special_id: str):
         return {"message": "Sketch deleted successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+
+
+#filteration by quality[rating]
+async def get_sketches_by_quality(quality: int):
+    try:
+        sketches = await db.sketches.find({"quality": quality}).to_list(None)
+
+        for sketch in sketches:
+            sketch["_id"] = str(sketch["_id"])
+            if "image" in sketch and sketch["image"]:
+                sketch["image"] = base64.b64encode(sketch["image"]).decode('utf-8')
+
+        return sketches
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")

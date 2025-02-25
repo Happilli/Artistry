@@ -30,3 +30,7 @@ async def protected_route(payload: dict = Depends(verify_jwt_token)):
         return payload  
     
     return {"message": "You have access to this protected route", "user": payload}
+
+
+
+
