@@ -107,58 +107,81 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-
       {/* Featured Sketches */}
-      <div className="py-16 px-8 bg-[#f5f5f5]">
-        <h2 className="text-4xl font-bold text-center text-[#ba1f2a] mb-8">
+      <div className="py-20 px-4 sm:px-8 bg-[#f5f5f5]">
+        <h2 className="text-5xl font-bold text-center text-[#ba1f2a] mb-12">
           Featured Sketches
         </h2>
 
         {loading ? (
-          <p className="text-center text-lg text-gray-700">
-            Loading sketches...
-          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-white border-2 border-[#ba1f2a] rounded-lg overflow-hidden animate-pulse"
+              >
+                <div className="w-full h-64 bg-gray-200"></div>
+                <div className="p-6">
+                  <div className="h-8 bg-gray-200 rounded mb-4"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                  <div className="flex mb-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-6 w-6 bg-gray-200 rounded-full mr-2"
+                      ></div>
+                    ))}
+                  </div>
+                  <div className="h-12 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : error ? (
-          <p className="text-center text-lg text-red-500">{error}</p>
+          <p className="text-center text-lg text-red-500 font-medium">
+            {error}
+          </p>
         ) : sketches.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {sketches.map((sketch) => (
               <div
                 key={sketch._id}
-                className="bg-white border-2 border-[#ba1f2a] rounded-lg"
+                className="bg-white border-2 border-[#ba1f2a] rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
                 <img
                   src={`data:image/png;base64,${sketch.image}`}
                   alt={sketch.name}
-                  className="w-full h-90 object-cover"
+                  className="w-full h-64 object-cover"
                 />
-                <div className="p-4">
-                  <h3 className="text-2xl font-semibold text-[#ba1f2a]">
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-[#ba1f2a] mb-2">
                     {sketch.name}
                   </h3>
-                  <p className="text-sm text-gray-700 mt-2">
+                  <p className="text-sm text-gray-600 mb-1">
                     <strong>Category:</strong> {sketch.category}
                   </p>
-                  <p className="text-sm text-gray-700 mt-1">
+                  <p className="text-sm text-gray-600 mb-1">
                     <strong>Created On:</strong>{" "}
                     {new Date(sketch.created_at).toLocaleDateString()}
                   </p>
-                  <p className="text-sm text-gray-700 mt-1">
+                  <p className="text-sm text-gray-600 mb-4">
                     <strong>Special ID:</strong> {sketch.special_id}
                   </p>
-                  <div className="flex mt-2">
+                  <div className="flex mb-4">
                     {Array.from({ length: 5 }, (_, i) => (
                       <Star
                         key={i}
-                        size={32}
+                        size={24}
                         weight={i < sketch.quality ? "fill" : "regular"}
                         className="text-[#ba1f2a]"
                       />
                     ))}
                   </div>
                   <button
-                    onClick={() => navigate(`/sketch/${sketch.special_id}`)} // Use special_id for navigation
-                    className="mt-4 px-4 py-2 bg-[#ba1f2a] text-white rounded-md text-sm font-semibold transition-all hover:bg-[#1a171c]"
+                    onClick={() => navigate(`/sketch/${sketch.special_id}`)}
+                    className="w-full px-6 py-3 bg-[#ba1f2a] text-white rounded-md text-sm font-semibold transition-all hover:bg-[#1a171c] hover:scale-105 transform"
                   >
                     View Details
                   </button>

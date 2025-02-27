@@ -46,26 +46,9 @@ const SketchDetail: React.FC = () => {
     fetchSketch();
   }, [fetchSketch]);
 
-  if (loading) {
-    return (
-      <Layout
-        title="Loading... - Artistry | Sketch Details"
-        description="Loading sketch details"
-        author="Safal Lama"
-        keywords="loading, sketch, artwork, details, digital art"
-      >
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#f5f5f5] to-[#e0e0e0]">
-          <p className="text-xl text-gray-700 animate-pulse">
-            Loading sketch details...
-          </p>
-        </div>
-      </Layout>
-    );
-  }
-
   return (
     <Layout
-      title={`${sketch?.name} - Artistry | Sketch Details`}
+      title={`${sketch?.name || "Loading..."} - Artistry | Sketch Details`}
       description={
         sketch?.description || "View the full details of the selected sketch."
       }
@@ -73,7 +56,35 @@ const SketchDetail: React.FC = () => {
       keywords={`${sketch?.name}, sketch, artwork, details, digital art`}
     >
       <div className="bg-gradient-to-r from-[#f5f5f5] to-[#e0e0e0] min-h-screen py-12">
-        {error ? (
+        {loading ? (
+          // Skeleton Loading State
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white rounded-lg shadow-2xl overflow-hidden animate-pulse">
+              <div className="flex flex-col md:flex-row">
+                {/* Image Skeleton */}
+                <div className="md:w-1/2 p-8">
+                  <div className="w-full h-96 bg-gray-200 rounded-lg"></div>
+                </div>
+                {/* Content Skeleton */}
+                <div className="md:w-1/2 p-8 flex flex-col justify-center space-y-6">
+                  <div className="h-12 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-6 bg-gray-200 rounded w-full"></div>
+                  <div className="h-6 bg-gray-200 rounded w-2/3"></div>
+                  <div className="h-6 bg-gray-200 rounded w-1/2"></div>
+                  <div className="h-6 bg-gray-200 rounded w-1/2"></div>
+                  <div className="flex space-x-2">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-8 w-8 bg-gray-200 rounded-full"
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : error ? (
           <div className="flex justify-center items-center min-h-screen">
             <p className="text-xl text-red-500">{error}</p>
           </div>
@@ -81,6 +92,7 @@ const SketchDetail: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
               <div className="flex flex-col md:flex-row">
+                {/* Image Section */}
                 <div className="md:w-1/2 p-8">
                   <img
                     src={`data:image/png;base64,${sketch.image}`}
@@ -88,6 +100,7 @@ const SketchDetail: React.FC = () => {
                     className="w-full h-auto rounded-lg object-cover transform hover:scale-105 transition-transform duration-300"
                   />
                 </div>
+                {/* Content Section */}
                 <div className="md:w-1/2 p-8 flex flex-col justify-center">
                   <h2 className="text-5xl font-bold text-[#ba1f2a] mb-4">
                     {sketch.name}
@@ -127,6 +140,7 @@ const SketchDetail: React.FC = () => {
           </div>
         )}
 
+        {/* Go Back Button */}
         <div className="flex justify-center mt-8">
           <button
             onClick={() => navigate("/")}

@@ -121,9 +121,35 @@ const Artworks: React.FC = () => {
           </div>
 
           {loading ? (
-            <p className="text-center text-lg text-gray-700">
-              Loading artworks...
-            </p>
+            // Skeleton Loading State with Theme Border
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse border-2 border-[#ba1f2a]"
+                >
+                  <div className="w-full h-64 bg-gray-200"></div>
+                  <div className="p-5">
+                    <div className="h-6 bg-gray-200 rounded mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                    <div className="flex mb-4">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="h-5 w-5 bg-gray-200 rounded-full mr-2"
+                        ></div>
+                      ))}
+                    </div>
+                    <div className="h-10 bg-gray-200 rounded mb-2"></div>
+                    {accessToken && (
+                      <div className="h-10 bg-gray-200 rounded"></div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : error ? (
             <p className="text-center text-lg text-red-500">{error}</p>
           ) : filteredSketches.length > 0 ? (
@@ -131,7 +157,7 @@ const Artworks: React.FC = () => {
               {filteredSketches.map((sketch) => (
                 <div
                   key={sketch._id}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-200 hover:shadow-xl"
+                  className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-200 hover:shadow-xl border-2 border-[#ba1f2a]"
                 >
                   <img
                     src={`data:image/png;base64,${sketch.image}`}
