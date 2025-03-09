@@ -63,7 +63,7 @@ const Header = () => {
                   <li key={idx}>
                     <Link
                       to={path}
-                      className={`text-gray-800 text-lg font-medium relative group transition-all duration-300 ease-in-out hover:text-red-600 ${
+                      className={`text-gray-800 text-lg font-medium relative group transition-all duration-300 ease-in-out ${
                         isActive ? "text-red-600" : ""
                       }`}
                     >

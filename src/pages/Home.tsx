@@ -37,7 +37,7 @@ const Home: React.FC = () => {
                 scrollY * 0.4
               }px) translateX(20%) scaleX(-1)`,
               transition: "transform 0.1s ease-out",
-              zIndex: 50,
+              zIndex: 20,
             }}
           />
           <h1

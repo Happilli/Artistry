@@ -81,10 +81,10 @@ const Artworks: React.FC = () => {
       author="Safal Lama"
       keywords="artworks, sketches, digital art, portfolio, Safal Lama"
     >
-      <div className="py-16 px-6 bg-[#f8f8f8] min-h-screen">
+      <div className="py-16 px-6 bg-gradient-to-br from-[#f8f8f8] to-[#eaeaea] min-h-screen">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row justify-between items-center mb-12">
-            <h2 className="text-4xl font-bold text-[#ba1f2a] mb-6 sm:mb-0">
+            <h2 className="text-5xl font-bold text-[#ba1f2a] mb-6 sm:mb-0">
               All Artworks
             </h2>
 
@@ -92,7 +92,7 @@ const Artworks: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Category Filter */}
               <select
-                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ba1f2a] focus:border-[#ba1f2a] transition"
+                className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ba1f2a] focus:border-[#ba1f2a] transition"
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 value={selectedCategory}
               >
@@ -106,7 +106,7 @@ const Artworks: React.FC = () => {
 
               {/* Quality Filter */}
               <select
-                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ba1f2a] focus:border-[#ba1f2a] transition"
+                className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#ba1f2a] focus:border-[#ba1f2a] transition"
                 onChange={(e) => setSelectedQuality(e.target.value)}
                 value={selectedQuality}
               >
@@ -190,14 +190,14 @@ const Artworks: React.FC = () => {
                     </div>
                     <button
                       onClick={() => navigate(`/sketch/${sketch.special_id}`)}
-                      className="w-full px-4 py-2 bg-[#ba1f2a] text-white rounded-md text-sm font-semibold transition hover:bg-[#9e1a22] focus:outline-none focus:ring-2 focus:ring-[#ba1f2a] focus:ring-offset-2"
+                      className="w-full px-4 py-2 bg-[#ba1f2a] text-white rounded-lg text-sm font-semibold transition hover:bg-[#9e1a22] focus:outline-none focus:ring-2 focus:ring-[#ba1f2a] focus:ring-offset-2"
                     >
                       View Details
                     </button>
                     {accessToken && (
                       <button
                         onClick={() => handleDelete(sketch.special_id)}
-                        className="w-full px-4 py-2 mt-2 bg-red-600 text-white rounded-md text-sm font-semibold transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                        className="w-full px-4 py-2 mt-2 bg-red-600 text-white rounded-lg text-sm font-semibold transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
                       >
                         Delete
                       </button>
