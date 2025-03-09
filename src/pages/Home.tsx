@@ -195,45 +195,6 @@ const Home: React.FC = () => {
           </p>
         )}
       </div>
-      <div className="w-full bg-[#ba1f2a] py-12 rounded-t-3xl mb-20">
-        <div className="rounded-t-lg overflow-hidden max-w-7xl mx-auto shadow-2xl">
-          <div className="p-1">
-            <h3 className="text-5xl font-bold text-white mb-4 text-center drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)]">
-              Graphic Generated Through Flask
-            </h3>
-            <p className="text-lg text-[#f5f5f5] mb-6 text-center">
-              This graphic was dynamically generated using Flask, a Python web
-              framework. It showcases the power of combining backend logic with
-              creative visual outputs. Flask allowed me to programmatically
-              create this image, blending art and technology seamlessly. and
-              still avaialbe in my serena profiling system.
-            </p>
-            <div className="animate-bounce-slow">
-              <img
-                src="https://github.com/RyuZinOh/static-assets/blob/main/graphic.png?raw=true"
-                alt="Graphic Generated Through Flask"
-                className="w-full rounded-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <style>
-        {`
-    @keyframes bounce-slow {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-20px);
-      }
-    }
-    .animate-bounce-slow {
-      animation: bounce-slow 3s ease-in-out infinite;
-    }
-  `}
-      </style>
     </Layout>
   );
 };
